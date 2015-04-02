@@ -1,6 +1,7 @@
-(ns word-counter-jp
+(ns word-counter-jp2
   (:require [clojure.string :refer [lower-case split]])
-  (:import [org.atilika.kuromoji Tokenizer]))
+  (:import [clojure.lang MapEntry]
+           [org.atilika.kuromoji Token Tokenizer]))
 
 ;; 単語の出現回数
 (defrecord WordFreq [word category count]
@@ -19,7 +20,9 @@
       :else
         (compare (:category this) (:category other)))))
 
-(defn- to-wordfreq [t]
+(defmulti ^:private to-wordfreq class)
+
+(defmethod to-wordfreq Token [t]
   (let [category (first (split (.getPartOfSpeech t) #","))
         word     (fn [t]
                    (if (#{"動詞", "形容詞", "助動詞"} category)
@@ -27,12 +30,12 @@
                      (.getSurfaceForm t)))]
     (->WordFreq (word t) category 1)))
 
-(defn- word-elem? [{:keys [word category]}]
-  (and (some? word)
-       (not (#{"記号"} category))))
+(defmethod to-wordfreq MapEntry [[{:keys [word category]} cnt]]
+  (->WordFreq word category cnt))
 
-(defn- wfs-to-wf [[{:keys [word category]} wfs]]
-  (->WordFreq word category (count wfs)))
+(defn- word-elem? [wf]
+  (and (some? (:word wf))
+       (not (#{"記号"} (:category wf)))))
 
 ;; 文字列を単語の出現回数のリストに編集する。
 (defn- wordfreq-list [s]
@@ -43,7 +46,7 @@
   "和文の文字列に含まれる単語の出現回数をカウントする。
   活用形は原形に戻し、記号類は除外する。"
   [s]
-  (->> s wordfreq-list (group-by identity) (map wfs-to-wf) sort))
+  (->> s wordfreq-list frequencies (map to-wordfreq) sort))
 
 (if (not= (count *command-line-args*) 2)
   (println "Please specify an input file.")
