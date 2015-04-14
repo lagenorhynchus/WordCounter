@@ -45,10 +45,8 @@ def count_words(s):
     Returns:
         単語の出現回数リスト
     """
-    res = []
-    for key, group in groupby(sorted(_word_list(s)), key=lambda x: x):
-        res.append(WordFreq(key, len(list(group))))
-    return sorted(res)
+    return sorted(WordFreq(key, len(list(group)))
+        for key, group in groupby(sorted(_word_list(s))))
 
 
 if __name__ == '__main__':
