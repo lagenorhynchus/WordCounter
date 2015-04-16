@@ -46,7 +46,7 @@ def count_words(s):
         単語の出現回数リスト
     """
     return sorted(WordFreq(key, len(list(group)))
-        for key, group in groupby(sorted(_word_list(s))))
+                  for key, group in groupby(sorted(_word_list(s))))
 
 
 if __name__ == '__main__':
