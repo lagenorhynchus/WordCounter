@@ -61,8 +61,10 @@ let () =
         List.rev !result in
       let implode l =
         let result = String.create (List.length l) in
-        let rec imp i = function
+        let rec impl i = function
         | [] -> result
-        | c :: l -> result.[i] <- c; imp (i + 1) l in
-        imp 0 l in
+        | c :: l ->
+          result.[i] <- c;
+          impl (i + 1) l in
+        impl 0 l in
       List.iter WordCounter.print_word_freq (WordCounter.count_words (implode (list_of_stream f_stream)))
