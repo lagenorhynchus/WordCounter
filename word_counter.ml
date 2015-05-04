@@ -33,13 +33,13 @@ end = struct
   let word_list s =
     s |> filter_word_elem |> String.lowercase |> Str.split (Str.regexp "[ \t\r\n]+")
 
-  let group_by f =
+  let group_by f l =
     let rec group acc = function
     | [] -> acc
     | (x :: _) as l ->
       let l1, l2 = List.partition (f x) l in
       group (l1 :: acc) l2 in
-    group []
+    group [] l
 
   (*
    * 欧文の文字列に含まれる単語の出現回数をカウントする。
