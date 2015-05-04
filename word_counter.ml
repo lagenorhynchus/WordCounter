@@ -5,7 +5,7 @@ module WordCounter : sig
     word : string;
     count : int
   }
-  val print_word_freq : word_freq -> unit
+  val string_of_word_freq : word_freq -> string
   val count_words : string -> word_freq list
 end = struct
   (* 単語の出現回数 *)
@@ -14,8 +14,8 @@ end = struct
     count : int
   }
 
-  let print_word_freq wf =
-    Printf.printf "{word = %S; count = %d}\n" wf.word wf.count
+  let string_of_word_freq wf =
+    Printf.sprintf "{word = %S; count = %d}" wf.word wf.count
 
   (* カウントの降順、単語の昇順 *)
   let word_freq_comparator wf1 wf2 =
@@ -67,4 +67,5 @@ let () =
           result.[i] <- c;
           impl (i + 1) l in
         impl 0 l in
-      List.iter WordCounter.print_word_freq (WordCounter.count_words (implode (list_of_stream f_stream)))
+      f_stream |> list_of_stream |> implode |> WordCounter.count_words
+        |> List.iter (fun wf -> print_endline (WordCounter.string_of_word_freq wf))
