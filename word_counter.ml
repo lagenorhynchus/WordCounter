@@ -27,7 +27,7 @@ end = struct
     {word = List.hd ws; count = List.length ws}
 
   let filter_word_elem =
-    Str.global_replace (Str.regexp "[,.;:?!/'\"()\\[]") ""
+    Str.global_replace (Str.regexp "[],.;:?!/'\"()[]") ""
 
   (* 文字列を単語のリストに編集する。 *)
   let word_list s =
