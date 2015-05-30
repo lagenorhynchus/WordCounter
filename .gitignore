@@ -1,0 +1,30 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# CoffeeScript
+compiled/
+
+# Python
+__pycache__/
+
+# Haskell
+*.hi
+*.o
+.dist-buildwrapper/
+
+# Erlang
+*.beam
+
+# Eclipse
+.project
+.classpath
+.settings
+
+# others
+*.exe
+*.txt
+*.png
+kuromoji-test/
