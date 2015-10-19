@@ -1,6 +1,6 @@
+import sys
 from functools import total_ordering
 from itertools import groupby
-import sys
 
 
 @total_ordering
