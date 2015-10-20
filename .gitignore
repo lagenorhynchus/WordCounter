@@ -10,7 +10,6 @@ compiled/
 # Python
 __pycache__/
 .pydevproject
-dist/
 
 # Haskell
 *.hi
@@ -26,7 +25,6 @@ dist/
 .settings
 
 # others
-*.exe
 *.txt
 *.png
 kuromoji-test/
