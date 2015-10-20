@@ -10,6 +10,7 @@ compiled/
 # Python
 __pycache__/
 .pydevproject
+dist/
 
 # Haskell
 *.hi
