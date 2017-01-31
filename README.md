@@ -1,4 +1,4 @@
 WordCounter
 ===========
 
-欧文/和文テキストの単語数カウンター。
+A word counter program for European-language/Japanese text.
